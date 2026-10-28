@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import './App.css'
 import ProductList, { products } from './components/ProductList.jsx'
+import CartItem from './components/CartItem.jsx'
 
 function App() {
   const [page, setPage] = useState('home')
