@@ -1,5 +1,33 @@
-export const initialState={items:[]}
-export function addItem(state,product){const existing=state.items.find(i=>i.id===product.id);return {...state,items:existing?state.items.map(i=>i.id===product.id?{...i,quantity:i.quantity+1}:i):[...state.items,{...product,quantity:1}]}}
-export function removeItem(state,id){return {...state,items:state.items.filter(i=>i.id!==id)}}
-export function updateQuantity(state,{id,quantity}){return {...state,items:state.items.map(i=>i.id===id?{...i,quantity:Math.max(1,quantity)}:i)}}
-export default function cartReducer(state=initialState,action){switch(action.type){case'cart/addItem':return addItem(state,action.payload);case'cart/removeItem':return removeItem(state,action.payload);case'cart/updateQuantity':return updateQuantity(state,action.payload);default:return state}}
+import { createSlice } from '@reduxjs/toolkit';
+
+export const CartSlice = createSlice({
+  name: 'cart',
+  initialState: {
+    items: [], // Initialize items as an empty array
+  },
+  reducers: {
+    addItem: (state, action) => {
+      const { name, image, cost } = action.payload;
+      const existingItem = state.items.find((item) => item.name === name);
+      if (existingItem) {
+        existingItem.quantity++;
+      } else {
+        state.items.push({ name, image, cost, quantity: 1 });
+      }
+    },
+    removeItem: (state, action) => {
+      const itemName = action.payload;
+      state.items = state.items.filter((item) => item.name !== itemName);
+    },
+    updateQuantity: (state, action) => {
+      const { name, quantity } = action.payload;
+      const itemToUpdate = state.items.find((item) => item.name === name);
+      if (itemToUpdate) {
+        itemToUpdate.quantity = quantity;
+      }
+    },
+  },
+});
+
+export const { addItem, removeItem, updateQuantity } = CartSlice.actions;
+export default CartSlice.reducer;
