@@ -1,0 +1,1 @@
+export default function AboutUs(){return <section className="page"><div className="page-heading"><h1>About Paradise Nursery</h1><p>We make it easy to grow a greener, happier home.</p></div><p>Paradise Nursery is an online plant shop dedicated to healthy, beautiful houseplants. Our team carefully selects and packages every plant so it arrives ready to thrive.</p></section>}
